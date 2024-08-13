@@ -1,0 +1,225 @@
+#include <bits/stdc++.h>
+#include<iostream>
+using namespace std;
+
+class Node{
+public:
+    int data;
+    Node* next;
+    
+    Node(int data){
+        this->data = data;
+        this->next = NULL;
+    }
+    
+    ~Node(){
+        int value = this->data;
+        if(this->next!=NULL){
+            delete next;
+            this->next = NULL;
+        }
+        cout<<"deleted "<<value<<endl;
+    }
+};
+
+void insertathead(Node* &head, int d){
+    Node* temp = new Node(d);
+    temp->next = head;
+    head = temp;
+}
+
+void insertattail(Node* &tail, int d){
+    Node* temp = new Node(d);
+    tail->next = temp;
+    tail = tail->next;
+}
+
+void insertatposition(Node* &tail,Node* &head, int position, int d){
+    
+    if(position ==1){
+        insertathead(head,d);
+        return;
+    }
+    Node* temp = head;
+    int cnt = 1;
+    
+    while(cnt<position-1){
+        temp = temp->next;
+        cnt++;
+    }
+    
+    if(temp->next == NULL){
+        insertattail(tail,d);
+        return;
+    }
+    
+    Node* Nodeinsert = new Node(d);
+    
+    Nodeinsert->next = temp->next;
+    
+    temp->next = Nodeinsert;
+}
+
+void print(Node* &head){
+    Node* temp = head;
+    
+    while(temp!=NULL){
+        cout<<temp->data<<" ";
+        temp = temp->next;
+    }
+    cout<<endl;
+}
+
+Node* sortzero(Node* head){
+    int c1=0;
+    int c2=0;
+    int c3=0;
+    Node* temp = head;
+    
+    while(temp!=NULL){
+        if(temp->data==0){
+            c1++;
+        }
+        else if(temp->data==1){
+            c2++;
+        }
+        else if(temp->data == 2){
+            c3++;
+        }
+        
+        temp = temp->next;
+    }
+    
+    temp = head;
+    while(temp!=NULL){
+        if(c1!=0){
+            temp->data = 0;
+            c1--;
+        }
+        else if(c2!=0){
+            temp->data = 1;
+            c2--;
+        }
+        else if(c3!=0){
+            temp->data = 2;
+            c3--;
+        }
+        temp = temp->next;
+    }
+    
+    return head;
+    
+}
+
+void inserttail(Node* &tail, Node* curr){
+    tail->next = curr;
+    tail = curr;
+}
+
+Node* sortones(Node* head){
+    Node* zerohead = new Node(-1);
+    Node* zerotail = zerohead;
+    Node* onehead = new Node(-1);
+    Node* onetail = onehead;
+    Node* twohead = new Node(-1);
+    Node* twotail = twohead;
+    
+    
+    Node* curr =head;
+    while(curr!=NULL){
+        
+        int value = curr->data;
+        
+        if(value==0){
+            inserttail(zerotail, curr);
+        }
+        else if(value ==1){
+            inserttail(onetail,curr);
+        }
+        else if(value ==2){
+            inserttail(twotail,curr);
+        }
+        
+        curr = curr->next;
+    }
+    
+    if(onehead->next!=NULL){
+        zerotail->next = onehead->next;
+    }
+    else{
+        zerotail->next = twohead->next;
+    }
+    
+    onetail->next = twohead->next;
+    twotail->next = NULL;
+    
+    head = zerohead->next;
+    
+   /* delete(zerohead);
+    delete(onehead);
+    delete(twohead);
+    */
+    return head;
+}
+
+
+Node* mergetwo(Node* first, Node* second){
+    
+    if(first->next == NULL){
+        first->next = second;
+        return first;
+    }
+    
+    Node* curr1 = first;
+    Node* next1 = curr1->next;
+    Node* curr2 = second;
+    Node* next2 = curr2->next;
+    
+    while(curr1 != NULL && curr2 != NULL){
+        
+        if((curr2->data >= curr1->data) && (curr2->data <= next1->data)){
+            
+            curr1->next = curr2;
+            next2 = curr2->next;
+            curr2->next = next1;
+            curr1 = curr2;
+            curr2 = next2;
+        }
+        
+        else{
+            curr1 = next1;
+            next1 = next1->next;
+            
+            if(next1 == NULL){
+                curr1->next = curr2;
+                return first;
+            }
+        }
+    }
+    return first;
+}
+int main()
+{
+Node* node1 = new Node(1);
+//cout<<node1->data<<endl;
+//cout<<node1->next<<endl;
+    
+    Node* head = node1;
+    Node* tail = node1;
+    
+    insertattail(tail, 0);
+    
+    insertathead(head, 1);
+    
+    insertattail(tail,2);
+    
+    insertatposition(tail,head,2, 1);
+    print(head);   
+    
+    
+    Node* p =sortones(head);
+
+    print(p);
+ 
+ return 0;
+}

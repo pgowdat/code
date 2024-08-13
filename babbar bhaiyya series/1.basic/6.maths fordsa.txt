@@ -1,0 +1,123 @@
+// CPP to find nim-game winner
+#include <bits/stdc++.h>
+using namespace std;
+
+/*void rev(string &str, int i, int j){
+    int s=i;
+    int e=j;
+    while(s<e){
+        swap(str[s++],str[e--]);
+    }
+    
+}
+char tolowercase(char c){
+    if(c>='a' && c<='z'){
+        return c;
+    }
+    else{
+        return c - 'A' + 'a';
+    }
+}
+void checkpali(string s){
+    int st=0;
+    int e = s.size()-1;
+while(st<=e){
+    if(tolowercase(s[st++])!=tolowercase(s[e--])){
+        cout<<"illa guru";
+    }
+    else{
+        cout<<"pakka macha";
+    }
+} 
+}
+
+void reverseword(string s){
+    s.insert(s.end(), ' ');
+    int n = s.length();
+    int j=0;
+    
+    for(int i=0; i<n; i++){
+        if(s[i]==' '){
+            rev(s,j,i-1);
+            j=i+1;
+        }
+    }
+    s.pop_back();
+    rev(s,0,s.length()-1);
+    cout<<s;
+}
+
+void compression(string s){
+    int i=0, index=0;
+    int n = s.size();
+    while(i<n){
+        int j=i+1;
+        while(j<n && s[i]==s[j]){
+            j++;
+        }
+        
+        s[index++] = s[i];
+        int count = j-i;
+        if(count>1){
+            string cnt = to_string(count);
+            for(char ch:cnt){
+                s[index++] = ch;
+            }
+        }
+i=j;
+    }
+    
+    for(int i=0; i<index; i++){
+        cout<<s[i];
+    }
+    cout<<endl<<index;
+}*/
+
+void isprime(int n){
+    int cnt=0;
+    vector<bool>prime(n+1,true);
+    
+    prime[0] = prime[1] = false;
+    
+    
+    
+    for(int i=2; i<n; i++){
+        if(prime[i]){
+            cnt++;
+            
+            
+            for(int j=2*i; j<n; j=j+i){
+                prime[j]=false;
+        }
+    }
+}
+    cout<<cnt;
+}
+
+void gcd(int a,int b){
+    if(a==0){
+        cout<<b;
+    }
+    if(b==0){
+        cout<<a;
+    }
+    while(a!=b){
+        if(a>b){
+            a = a-b;
+        }
+        else{
+            b = b-a;
+        }
+    }
+    cout<<a;
+}
+
+int main()
+{
+int a;
+cin>>a;
+/*int b;
+cin>>b;
+gcd(a,b);*/
+isprime(a);
+}

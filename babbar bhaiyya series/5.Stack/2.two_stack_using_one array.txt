@@ -1,0 +1,64 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class twostack{
+public:
+    int *arr;
+    int top1;
+    int top2;
+    int size;
+    
+    twostack(int s){
+        this->size  = s;
+        arr = new int[s];
+        top1 = -1;
+        top2 = s;
+    }
+    
+    void push1(int element){
+        if(top2 - top1 >1){
+            top1++;
+            arr[top1] = element;
+        }
+        else{
+            cout<<"overfllow ";
+        }
+    }
+    
+    void push2(int element){
+        if(top2 - top1 >1){
+            top2--;
+            arr[top2] = element;
+        }
+        else{
+            cout<<"overfllow ";
+        }
+    }
+    
+    void pop1(){
+        if(top1>=0){
+            top1--;
+        }
+        else{
+            cout<<"underflow";
+        }
+    }
+    
+    void pop2(){
+        if(top2 < size){
+            top2++;
+        }
+        else{
+            cout<<"overflow "l
+        }
+    }
+
+};
+
+
+
+int main()
+{
+    
+    return 0;
+}
