@@ -1,0 +1,47 @@
+#include<bits/stdc++.h>
+bool ispalindrome(string &s){
+    if(s.length()==1){
+        return true;
+    }
+    int st = 0;
+    int e = s.length()-1;
+
+    while(st<=e){
+        if(s[st++]!=s[e--]){
+            return false;
+        }
+    }
+    return true;
+}
+
+int countsubs(vector<string>&ans){
+    int count = 0;
+    for(int i=0; i<ans.size(); i++){
+        string s = ans[i];
+        if(ispalindrome(s)){
+            count++;
+        }
+    }
+    return count;
+}
+
+void solve(vector<string>& ans, string str, string output, int i) {
+    //base case
+    for(int i= 0; i<str.length(); i++){
+        string output = "";
+        for(int j =i; j<str.length(); j++){
+            output+=str[j];
+            ans.push_back(output);
+        }
+    }
+}
+
+
+int palindromicSubstrings(string input)
+{
+    vector<string> ans;
+    string output = "";
+    solve(ans,input,output,0);
+    int s = countsubs(ans);
+    return s;
+}

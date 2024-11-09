@@ -1,0 +1,80 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void getreverse(queue<int> q, int k){
+    queue<int>s;
+    stack<int>p;
+    int cnt =0; 
+    
+    while(cnt<k){
+        int ans = q.front();
+        q.pop();
+        p.push(ans);
+        cnt++;
+    }
+    while(!q.empty()){
+        int ans = q.front();
+        q.pop();
+        s.push(ans);
+    }    
+    while(!p.empty()){
+        int ans = p.top();
+        cout<<ans<<endl;
+        p.pop();
+        q.push(ans);
+    }
+    while(!s.empty()){
+        int ans = s.front();
+        cout<<ans<<endl;
+        s.pop();
+        q.push(ans);
+    }
+}
+
+void interleave(queue<int>q){
+    queue<int>q1;
+    queue<int>q2;
+    
+    for(int i=0; i<=q.size()/2; i++){
+        int ans = q.front();
+        q.pop();
+        q1.push(ans);
+    }
+    
+    while(!q.empty()){
+        int ele = q.front();
+        q.pop();
+        q2.push(ele);
+    }
+    
+    while(!q2.empty()){
+        int val = q1.front();
+        q1.pop();
+        q1.push(val);
+        int ele = q2.front();
+        q2.pop();
+        q1.push(ele);
+    }
+    
+    while(!q1.empty()){
+        int x = q1.front();
+        cout<<x<<endl;
+        q1.pop();
+        
+    }
+}
+int main()
+{
+    queue<int>q;
+    q.push(5);
+    q.push(10);
+    q.push(9);
+    q.push(8);
+    q.push(7);
+    q.push(6);
+    
+    
+    interleave(q);
+
+return 0;
+}

@@ -1,0 +1,193 @@
+// CPP to find nim-game winner
+#include <bits/stdc++.h>
+using namespace std;
+
+class Node{
+public:
+    int data;
+    Node* next;
+    
+    Node(int data){
+        this->data = data;
+        this->next = NULL;
+    }
+    
+    ~Node(){
+        int value = this->data;
+        if(this->next!=NULL){
+            delete next;
+            this->next = NULL;
+        }
+        cout<<"deleted "<<value<<endl;
+    }
+};
+
+void insertathead(Node* &head, int d){
+    Node* temp = new Node(d);
+    temp->next = head;
+    head = temp;
+}
+
+void insertattail(Node* &tail, int d){
+    Node* temp = new Node(d);
+    tail->next = temp;
+    tail = tail->next;
+}
+
+void insertatposition(Node* &tail,Node* &head, int position, int d){
+    
+    if(position ==1){
+        insertathead(head,d);
+        return;
+    }
+    Node* temp = head;
+    int cnt = 1;
+    
+    while(cnt<position-1){
+        temp = temp->next;
+        cnt++;
+    }
+    
+    if(temp->next == NULL){
+        insertattail(tail,d);
+        return;
+    }
+    
+    Node* Nodeinsert = new Node(d);
+    
+    Nodeinsert->next = temp->next;
+    
+    temp->next = Nodeinsert;
+}
+
+void print(Node* &head){
+    Node* temp = head;
+    
+    while(temp!=NULL){
+        cout<<temp->data<<" ";
+        temp = temp->next;
+    }
+    cout<<endl;
+}
+
+void deletenode(int position, Node* &head, Node* &tail){
+    
+    if(position==1){
+        Node* temp = head;
+        head = head->next;
+        temp->next = NULL;
+        delete temp;
+    }
+    else{
+        Node* curr = head;
+        Node* prev = NULL;
+        
+        int cnt = 1;
+        while(cnt<position){
+            prev = curr;
+            curr = curr->next;
+            cnt++;
+        }
+        if(curr->next == NULL){
+            tail = prev;
+        }
+        
+        prev->next = curr->next;
+        curr->next = NULL;
+        delete curr;
+    }
+}
+
+
+Node* reverselist(Node* head){
+    Node* curr = head;
+    Node* prev = NULL;
+    Node* frwd = NULL;
+    while(curr!=NULL){
+        frwd = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = frwd;
+    }
+    return prev;
+}
+void inserttail(Node* &head, Node* &tail, int data){
+    Node* temp = new Node(data);
+    if(head==NULL){
+        head = temp;
+        tail = temp;
+    }
+    else{
+        tail->next = temp;
+        tail = temp;
+    }
+}
+Node* add(Node* first, Node* second){
+    int carry = 0;
+    
+    Node* anshead = NULL;
+    Node* anstail = NULL;
+    
+    while(first!=NULL || second!=NULL || carry!=0){
+        
+        int val1 = 0;
+        if(first!=NULL)
+            val1 = first->data;
+            
+        int val2 = 0;
+        if(second!=NULL){
+            val2 = second->data;
+        }
+        int sum =carry + val1 + val2 ;
+        int digit = sum%10;
+        inserttail(anshead, anstail, digit);
+        carry = sum/10;
+        if(first!=NULL){
+        first = first->next;}
+        if(second!=NULL){
+        second= second->next;}
+    }
+    return anshead;
+}
+    
+
+
+
+Node* addtwolist(Node* first, Node* second){
+    first = reverselist(first);
+    second = reverselist(second);
+    
+    Node* ans = add(first, second);
+    
+    ans = reverselist(ans);
+    
+    return ans;
+}
+
+int main()
+{
+Node* node1 = new Node(1);
+Node* node2 = new Node(2);
+//cout<<node1->data<<endl;
+//cout<<node1->next<<endl;
+    
+    Node* head = node1;
+    Node* tail = node1;
+    
+    insertattail(tail, 2);
+    
+    insertathead(head, 3);
+    print(head);
+    
+    Node* head1 = node2;
+    Node* tail1 = node2;
+    
+    insertattail(tail1, 2);
+    
+    insertathead(head1, 3);
+    print(head1);
+    
+    Node*p = addtwolist(head, head1);
+    print(p);
+ return 0;
+}

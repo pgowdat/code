@@ -1,0 +1,57 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void printstack(stack<int> s){
+    if(s.empty()){
+        return;
+    }
+    int x = s.top();
+    s.pop();
+    cout<<x<<endl;
+    printstack(s);
+    s.push(x);
+}
+
+void sorting(stack<int>& st, int num){
+    if(st.empty() || (!st.empty() && st.top()<num) ){
+        st.push(num);
+        return;
+    }
+    
+    int n = st.top();
+    st.pop();
+    sorting(st,num);
+    st.push(n);
+}
+void sortastack(stack<int>& st){
+    if(st.empty()){
+        return;
+    }
+    
+    int num = st.top();
+    st.pop();
+    sortastack(st);
+    sorting(st, num);
+    
+}
+
+int main()
+{
+stack<int> s;
+
+s.push(10);
+s.push(6);
+s.push(4);
+s.push(5);
+s.push(3);
+s.push(2);
+
+
+printstack(s);
+cout<<endl;
+
+sortastack(s);
+printstack(s);
+    
+return 0;
+}

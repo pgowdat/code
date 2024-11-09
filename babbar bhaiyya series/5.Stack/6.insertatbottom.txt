@@ -1,0 +1,42 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void printstack(stack<int> s){
+    if(s.empty()){
+        return;
+    }
+    int x = s.top();
+    s.pop();
+    cout<<x<<endl;
+    printstack(s);
+    s.push(x);
+}
+
+void addtobase(stack<int>& s, int d){
+    if(s.empty()){
+        s.push(d);
+        return ;
+    }
+    
+    int x = s.top();
+    s.pop();
+    addtobase(s,d);
+    s.push(x);
+}
+
+int main()
+{
+stack<int> s;
+s.push(2);
+s.push(3);
+s.push(4);
+s.push(5);
+s.push(6);
+s.push(10);
+printstack(s);
+
+addtobase(s,9);
+printstack(s);
+    
+return 0;
+}

@@ -1,0 +1,85 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class queues{
+public:
+    int *arr;
+    int front;
+    int rear;
+    int size;
+    
+    queues(){
+        size = 10001;
+        arr = new int[size];
+        front = 0;
+        rear = 0;
+    }
+
+    
+    void enqueue(int d){
+        if(rear==size){
+            return ;
+        }
+        else{
+            arr[rear] = d;
+rear++; 
+        }
+    }
+    
+    int dequeue(){
+        if(front==rear){
+            return -1;
+        }
+        else{
+            int ans = arr[front];
+            arr[front] = -1;
+            front++;
+            if(front==rear){
+                front=rear=0;
+            }
+            return ans;
+        }
+    }
+    
+    int top(){
+        if(front==rear){
+            return -1;
+        }
+        else{
+            return arr[front];
+        }
+    }
+    
+    bool isempty(){
+        if(front==rear){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    
+};
+
+int main()
+{
+    queues q;
+    q.enqueue(3);
+    q.enqueue(5);
+    q.enqueue(7);
+    q.enqueue(9);
+    cout<<q.dequeue()<<endl;
+    cout<<q.dequeue()<<endl;
+    cout<<q.dequeue()<<endl;
+        cout<<q.dequeue()<<endl;
+if(q.isempty()){
+    cout<<"empty";
+}
+else{
+    cout<<"not";
+}
+    cout<<q.top();
+
+
+return 0;
+}
