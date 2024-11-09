@@ -1,3 +1,4 @@
+/*
 #include <iostream>
 using namespace std;
 
@@ -38,7 +39,7 @@ int main() {
     return 0;
 }
 
-
+*/
 
 /*
 #include <iostream>
@@ -81,7 +82,7 @@ int main() {
 }
 */
 
-/*
+
 #include<iostream>
 using namespace std;
 #include<bits/stdc++.h>
@@ -117,4 +118,3 @@ int main(){
     return 0;
 }
 
-*/
